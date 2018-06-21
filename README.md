@@ -1,8 +1,8 @@
 # p2p-securities-trading
 
-A peer-to-peer platform for trading securities. 
-Developed on Corda and Django.
-Started with Corda example application.
+* A peer-to-peer platform for trading securities. 
+* Developed on Corda and Django.
+* Started with Corda example application.
 
 ## Getting Started
 
@@ -10,8 +10,8 @@ clone repository - provides copy of Corda application (Cordapp) and Django proje
 
 ### Prerequisites
 
-java
-python
+* java
+* python
 
 ```
 Give examples
