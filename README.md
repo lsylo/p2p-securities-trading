@@ -13,10 +13,6 @@ clone repository - provides copy of Corda application (Cordapp) and Django proje
 * java
 * python
 
-```
-Give examples
-```
-
 ### Installing
 
 launch corda nodes from Cordapp home directory
