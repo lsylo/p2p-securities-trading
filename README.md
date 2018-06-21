@@ -37,6 +37,6 @@ navigate to server on web browser to test application
 
 ## Built With
 
-* [Django](http://www.dropwizard.io/1.0.2/docs/) - Web Framework
-* [Corda](https://maven.apache.org/) - Distributed Ledger Network
+* [Django](https://docs.djangoproject.com/en/2.0/) - Web Framework
+* [Corda](https://docs.corda.net/) - Distributed Ledger Network
 
