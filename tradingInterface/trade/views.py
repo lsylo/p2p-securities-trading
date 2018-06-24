@@ -1,14 +1,25 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 import requests
 
-# api addresses
+# corda api definitions
 nodeAddress = "http://localhost"
 port = ":" + "10009" + "/" #handles user specifying invalid local host port
 apiVault = "api/example/ious"
 apiCreateIOU = "api/example/create-iou?iouValue="
 
-#helper functions
+def createIOU(request, hostport):
+	port = ":" + hostport + "/"
+	print(port, type(port))
+	print(hostport, type(hostport))
+	target = request.POST['target']
+	targetamount = request.POST['value']
+	r = requests.put(nodeAddress + port +
+		apiCreateIOU + targetamount + "&partyName=" + target)
+	return HttpResponseRedirect(reverse('trade:detail', args=([hostport])))
+
+#string parsers
 def peerParse(astr):
 	party1 = astr[2:astr.find(",")]
 	location1 = astr[astr.find(",") + 4 : astr.find(",", astr.find(",") + 1)]
@@ -43,5 +54,5 @@ def detail(request, hostport):
 	listLogs(x, r)
 	totalB, totalC = total(x)
 	return render(request, 'trade/detail.html', 
-		{'rends':x, 'totalB':totalB, 'totalC':totalC})
+		{'rends':x, 'totalB':totalB, 'totalC':totalC, 'hostport': hostport})
 
