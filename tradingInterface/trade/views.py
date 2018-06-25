@@ -5,14 +5,13 @@ import requests
 
 # corda api definitions
 nodeAddress = "http://localhost"
-port = ":" + "10009" + "/" #handles user specifying invalid local host port
 apiVault = "api/example/ious"
 apiCreateIOU = "api/example/create-iou?iouValue="
+apiPeers = "api/example/peers"
+apiMe = "api/example/me"
 
 def createIOU(request, hostport):
 	port = ":" + hostport + "/"
-	print(port, type(port))
-	print(hostport, type(hostport))
 	target = request.POST['target']
 	targetamount = request.POST['value']
 	r = requests.put(nodeAddress + port +
@@ -25,12 +24,12 @@ def peerParse(astr):
 	location1 = astr[astr.find(",") + 4 : astr.find(",", astr.find(",") + 1)]
 	country1 = astr[astr.find("C=") + 2:]
 	peer = party1 + ", " + location1 + ", " + country1
-	return(peer)
+	return(peer, party1, location1, country1)
 
 def listLogs(alist, ajson):  #parses ajson into alist of formatted strings
 	for i in ajson:
 		value = i['state']['data']['value']
-		borrower = str(peerParse(i['state']['data']['borrower']))
+		borrower = str(peerParse(i['state']['data']['borrower'])[0])
 		alist.append(borrower + " owing SGD" + str(value))
 
 def total(x):
@@ -49,10 +48,19 @@ def index(request):
 
 def detail(request, hostport):
 	port = ":" + hostport + "/"
-	r = requests.get(nodeAddress + port + apiVault).json()
-	x = []
-	listLogs(x, r)
-	totalB, totalC = total(x)
-	return render(request, 'trade/detail.html', 
-		{'rends':x, 'totalB':totalB, 'totalC':totalC, 'hostport': hostport})
+	rvault = requests.get(nodeAddress + port + apiVault).json()
+	rpeers = requests.get(nodeAddress + port + apiPeers).json()['peers']
+	rme = requests.get(nodeAddress + port + apiMe).json()['me']
+	vaultRow = []
+	listLogs(vaultRow, rvault)
+	totalB, totalC = total(vaultRow)
+	return render(request, 'trade/detail.html', {
+		'rends':vaultRow, 'totalB':totalB, 
+		'totalC':totalC, 'hostport': hostport,
+		'peer1': peerParse(rpeers[0])[2],
+		'peer2': peerParse(rpeers[1])[2],
+		'peer1path': rpeers[0].replace(" ", ""),
+		'peer2path': rpeers[1].replace(" ", ""),
+		'me': peerParse(rme)[2]
+		})
 

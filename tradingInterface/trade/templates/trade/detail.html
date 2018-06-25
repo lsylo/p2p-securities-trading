@@ -1,4 +1,4 @@
-<h1>NUS ISS Trading Demonstration {{ hostport }}</h1>
+<h1>NUS ISS Trading Demonstration {{ me }}</h1>
 
 <h2>Total Owing</h2>
 <h2>New York: SGD {{ totalB }}</h2>
@@ -6,10 +6,10 @@
 
 <form action="{% url 'trade:createIOU' hostport %}" method="post">
 {% csrf_token %}
-	<input type="radio" name="target" id="Paris" value="O=PartyC,L=Paris,C=FR" />
-	<label for="Paris">Paris</label><br />
-	<input type="radio" name="target" id="NewYork" value="O=PartyB,L=New%20York,C=US" />
-	<label for="New York">New York</label><br />
+	<input type="radio" name="target" id="peer1" value="{{ peer1path }}" />
+	<label for="Paris">{{ peer1 }}</label><br />
+	<input type="radio" name="target" id="peer2" value="{{ peer2path }}" />
+	<label for="New York">{{ peer2 }}</label><br />
 	<label for="value">SGD</label>
 	<input type="number" name="value" max="100" min="1">
 <input type="submit" value="Trade" />
