@@ -49,18 +49,23 @@ def index(request):
 def detail(request, hostport):
 	port = ":" + hostport + "/"
 	rvault = requests.get(nodeAddress + port + apiVault).json()
-	rpeers = requests.get(nodeAddress + port + apiPeers).json()['peers']
 	rme = requests.get(nodeAddress + port + apiMe).json()['me']
+	rpeers = requests.get(nodeAddress + port + apiPeers).json()['peers']
+	peer1, p1, l1, c1 = peerParse(rpeers[0])
+	peer2, p2, l2, c2 = peerParse(rpeers[1])
+	peer1path = "O="+p1+",L="+l1.replace(" ", "%20")+",C="+c1
+	peer2path = "O="+p2+",L="+l2.replace(" ", "%20")+",C="+c2
+	print(l1)
+	print(l2)
 	vaultRow = []
 	listLogs(vaultRow, rvault)
 	totalB, totalC = total(vaultRow)
 	return render(request, 'trade/detail.html', {
 		'rends':vaultRow, 'totalB':totalB, 
 		'totalC':totalC, 'hostport': hostport,
-		'peer1': peerParse(rpeers[0])[2],
-		'peer2': peerParse(rpeers[1])[2],
-		'peer1path': rpeers[0].replace(" ", ""),
-		'peer2path': rpeers[1].replace(" ", ""),
+		'peer1': l1,
+		'peer2': l2,
+		'peer1path': peer1path,
+		'peer2path': peer2path,
 		'me': peerParse(rme)[2]
 		})
-

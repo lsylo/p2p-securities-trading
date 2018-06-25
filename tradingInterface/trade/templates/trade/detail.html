@@ -1,8 +1,8 @@
 <h1>NUS ISS Trading Demonstration {{ me }}</h1>
 
 <h2>Total Owing</h2>
-<h2>New York: SGD {{ totalB }}</h2>
-<h2>Paris: SGD {{ totalC }}</h2>
+<h2>{{ peer1 }}: SGD {{ totalB }}</h2>
+<h2>{{ peer2 }}: SGD {{ totalC }}</h2>
 
 <form action="{% url 'trade:createIOU' hostport %}" method="post">
 {% csrf_token %}
