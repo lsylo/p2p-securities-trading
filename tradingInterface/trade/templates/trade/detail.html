@@ -1,23 +1,441 @@
-<h1>NUS ISS Trading Demonstration {{ me }}</h1>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>ISS IOU</title>
+	<meta charset="utf-8">
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+  	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Montserrat:300,400,500,700" rel="stylesheet">
+  	<!-- Favicons -->
+  	<link href="{% static 'img/nuslogo.png' %}" rel="icon">
+  	<link href="{% static 'img/apple-touch-icon.png' %}" rel="apple-touch-icon">
 
-<h2>Total Owing</h2>
-<h2>{{ peer1 }}: SGD {{ totalB }}</h2>
-<h2>{{ peer2 }}: SGD {{ totalC }}</h2>
+	<!-- Google Fonts -->
+  	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Montserrat:300,400,500,700" rel="stylesheet">
 
-<form action="{% url 'trade:createIOU' hostport %}" method="post">
-{% csrf_token %}
-	<input type="radio" name="target" id="peer1" value="{{ peer1path }}" />
-	<label for="Paris">{{ peer1 }}</label><br />
-	<input type="radio" name="target" id="peer2" value="{{ peer2path }}" />
-	<label for="New York">{{ peer2 }}</label><br />
-	<label for="value">SGD</label>
-	<input type="number" name="value" max="100" min="1">
-<input type="submit" value="Trade" />
-</form>
+	<!-- Bootstrap CSS File -->
+  	<link href="{% static 'lib/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
 
-<h3>Vault</h3>
-<ul>
-{% for j in rends %}
-    <li>{{ j }}</li>
-{% endfor %}
-</ul>
+  	<!-- Libraries CSS Files -->
+  	<link href="{% static 'lib/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
+  	<link href="{% static 'lib/animate/animate.min.css' %}" rel="stylesheet">
+  	<link href="{% static 'lib/ionicons/css/ionicons.min.css' %}" rel="stylesheet">
+  	<link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+  	<link href="{% static 'lib/lightbox/css/lightbox.min.css' %}" rel="stylesheet">
+
+	<!-- Main Stylesheet File -->
+  	<link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+</head>
+<body>
+  <!--==========================
+    Header
+  ============================-->
+  <header id="header">
+    <div class="container-fluid">
+
+      <div id="logo" class="pull-left">
+        <h1><a href="#intro" class="scrollto">NUS | ISS</a></h1>
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <a href="#intro"><img src="{% static 'img/logo4.png' %}" alt="" title="" /></a> -->
+      </div>
+
+      <nav id="nav-menu-container">
+        <ul class="nav-menu">
+          <li class="menu-active"><a href="#intro">Home</a></li>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#facts">Trade</a></li>
+          </li>
+          <li class="menu-has-children"><a href=""></a>
+          	<ul>
+              <li><a href="#">Drop Down 1</a></li>
+              <li><a href="#">Drop Down 3</a></li>
+              <li><a href="#">Drop Down 4</a></li>
+              <li><a href="#">Drop Down 5</a></li>
+            </ul>
+        </ul>
+      </nav><!-- #nav-menu-container -->
+    </div>
+  </header><!-- #header -->
+
+  <!--==========================
+    Intro Section
+  ============================-->
+  <section id="intro">
+    <div class="intro-container">
+      <div id="introCarousel" class="carousel  slide carousel-fade" data-ride="carousel">
+
+        <ol class="carousel-indicators"></ol>
+
+        <div class="carousel-inner" role="listbox">
+
+          <div class="carousel-item active">
+            <div class="carousel-background"><img src="{% static 'img/intro-carousel/1.jpg' %}" alt=""></div>
+            <div class="carousel-container">
+              <div class="carousel-content">
+                <h2>Peer to Peer Securities Trading</h2>
+                <p>Corda based proof of concept demonstrating matching, validation, and consensus of securities trades. Implements unique data models to digitize stocks, bonds, options, and futures contracts.</p>
+                <a href="#facts" class="btn-get-started scrollto">Demo</a>
+              </div>
+            </div>
+          </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section><!-- #intro -->
+
+    <!--==========================
+      Facts Section
+    ============================-->
+    <section id="facts"  class="wow fadeIn">
+      <div class="container">
+
+        <header class="section-header">
+          <h3>{{ me }}'s Loan Balance</h3>
+          <p>Loan balances in $SGD</p>
+        </header>
+
+        <div class="row counters">
+
+  				<div class="col-lg-3 col-6 text-center">
+            <span data-toggle="counter-up">{{ totalB }}</span>
+            <p>Owed to: {{ peer1 }}</p>
+  				</div>
+
+          <div class="col-lg-3 col-6 text-center">
+            <span data-toggle="counter-up">{{ totalC }}</span>
+            <p>Owed to: {{ peer2 }}</p>
+  				</div>
+
+          <div class="col-lg-3 col-6 text-center">
+            <span data-toggle="counter-up">{{ totalB }}</span>
+            <p>Owed by: {{ peer1 }}</p>
+  				</div>
+
+          <div class="col-lg-3 col-6 text-center">
+            <span data-toggle="counter-up">{{ totalC }}</span>
+            <p>Owed by: {{ peer2 }}</p>
+  				</div>
+
+  			</div>
+      </div>
+    <section id="skills">
+      <div class="container">
+        <div class="skills-content">
+          <div class="progress">
+            <div class="progress-bar bg-success" role="progressbar" aria-valuenow="39" aria-valuemin="0" aria-valuemax="100">
+              <span class="skill">New York <i class="val">${{ totalB }}</i></span>
+            </div>
+          </div>
+
+          <div class="progress">
+            <div class="progress-bar bg-info" role="progressbar" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100">
+              <span class="skill">Paris <i class="val">{{ totalC }}</i></span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+    </section><!-- #facts -->
+
+    <!--==========================
+      Contact Section
+    ============================-->
+    <section id="contact" class="section-bg wow fadeInUp">
+      <div class="container">
+
+        <div class="section-header">
+          <h3>Trade</h3>
+          <p>Submit trade requests for network validation and confirmation</p>
+        </div>
+
+        </div>
+        <div class="form">
+          <div id="sendmessage">Your order has been submitted. Confirmation will be sent. Thank you.</div>
+          <div id="errormessage"></div>
+          <form action="" method="post" role="form" class="contactForm">
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <input type="text" name="name" class="form-control" id="name" placeholder="Recipient" data-rule="minlen:4" data-msg="Please enter a valid recipient" />
+                <div class="validation"></div>
+              </div>
+              <div class="form-group col-md-6">
+                <input type="email" class="form-control" name="email" id="email" placeholder="Dollar Value (SGD)" data-rule="email" data-msg="Please enter a minimum value of $1 and maximum value of $100" />
+                <div class="validation"></div>
+              </div>
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" name="subject" id="subject" placeholder="Purpose" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
+              <div class="validation"></div>
+            </div>
+            <div class="form-group">
+              <textarea class="form-control" name="message" rows="5" data-rule="required" data-msg="Relevant transaction notes" placeholder="Notes"></textarea>
+              <div class="validation"></div>
+            </div>
+            <div class="text-center"><button type="submit">Submit Order</button></div>
+          </form>
+        </div>
+      </div>
+    </section><!-- #contact -->
+
+    <!--==========================
+      Features Section
+    ============================-->
+    <section id="featured-services">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-lg-4 box">
+            <i class="ion-ios-bookmarks-outline"></i>
+            <h4 class="title"><a href="">Zero Trading Fees</a></h4>
+            <p class="description">No middleman - peers connect directly to exchange assets - no banks, brokers, or intermediaries.</p>
+          </div>
+
+          <div class="col-lg-4 box box-bg">
+            <i class="ion-ios-stopwatch-outline"></i>
+            <h4 class="title"><a href="">Instant Confirmation</a></h4>
+            <p class="description">Transaction validation and consensus processes are immediate.</p>
+          </div>
+
+          <div class="col-lg-4 box">
+            <i class="ion-ios-heart-outline"></i>
+            <h4 class="title"><a href="">Open Sourced</a></h4>
+            <p class="description">Underlying platform is deccentralized - no individual can change it. Try some other interfaces!</p>
+          </div>
+
+        </div>
+      </div>
+    </section><!-- #featured-services -->
+
+    <!--==========================
+      Portfolio Section
+    ============================-->
+    <section id="portfolio"  class="section-bg" >
+      <div class="container">
+
+        <header class="section-header">
+          <h3 class="section-title">Transaction Vault</h3>
+        </header>
+
+        <div class="row">
+          <div class="col-lg-12">
+            <ul id="portfolio-flters">
+              <li data-filter="*" class="filter-active">All</li>
+              <li data-filter=".filter-app">New York</li>
+              <li data-filter=".filter-card">Paris</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="row portfolio-container">
+
+          <div class="col-lg-12 col-md-6 portfolio-item filter-app wow fadeInUp">
+            <div class="portfolio-wrap">
+              <div class="portfolio-info">
+                <h4><a href="#">Transaction 1</a></h4>
+                <p>New York</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-12 col-md-6 portfolio-item filter-web wow fadeInUp" data-wow-delay="0.1s">
+            <div class="portfolio-wrap">
+              <div class="portfolio-info">
+                <h4><a href="#">Transaction 2</a></h4>
+                <p>Web</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-12 col-md-6 portfolio-item filter-app wow fadeInUp" data-wow-delay="0.2s">
+            <div class="portfolio-wrap">
+              <div class="portfolio-info">
+                <h4><a href="#">Transaction 3</a></h4>
+                <p>App</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-12 col-md-6 portfolio-item filter-card wow fadeInUp">
+            <div class="portfolio-wrap">
+              <div class="portfolio-info">
+                <h4><a href="#">Transaction 4</a></h4>
+                <p>Card</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-12 col-md-6 portfolio-item filter-web wow fadeInUp" data-wow-delay="0.1s">
+            <div class="portfolio-wrap">
+              <div class="portfolio-info">
+                <h4><a href="#">Transaction 5</a></h4>
+                <p>Web</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-12 col-md-6 portfolio-item filter-app wow fadeInUp" data-wow-delay="0.2s">
+            <div class="portfolio-wrap">
+              <div class="portfolio-info">
+                <h4><a href="#">Transaction 6</a></h4>
+                <p>App</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-12 col-md-6 portfolio-item filter-card wow fadeInUp">
+            <div class="portfolio-wrap">
+              <div class="portfolio-info">
+                <h4><a href="#">Transaction 7</a></h4>
+                <p>Card</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-12 col-md-6 portfolio-item filter-card wow fadeInUp" data-wow-delay="0.1s">
+            <div class="portfolio-wrap">
+              <div class="portfolio-info">
+                <h4><a href="#">Transaction 8</a></h4>
+                <p>Card</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-12 col-md-6 portfolio-item filter-web wow fadeInUp" data-wow-delay="0.2s">
+            <div class="portfolio-wrap">
+              <div class="portfolio-info">
+                <h4><a href="#">Transaction 9</a></h4>
+                <p>Web</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- #portfolio -->
+<!--==========================
+      About Us Section
+    ============================-->
+    <section id="about">
+      <div class="container">
+
+        <header class="section-header">
+          <h3>About Us</h3>
+          <p>Established in 1981, the Institute of Systems Science at National University of Singapore (NUS-ISS) provides graduate education, professional development courses, consultancy and research services. Our objectives are to develop infocomm leaders, and drive business and organisation innovation.</p>
+        </header>
+
+        <div class="row about-cols">
+
+          <div class="col-md-4 wow fadeInUp">
+            <div class="about-col">
+              <div class="img">
+                <img src="{% static 'img/about-mission.jpg' %}" alt="" class="img-fluid">
+                <div class="icon"><i class="ion-ios-speedometer-outline"></i></div>
+              </div>
+              <h2 class="title"><a href="#">Our Mission</a></h2>
+              <p>
+                Developing digital talent through education, applied research, consulting and career services
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-4 wow fadeInUp" data-wow-delay="0.1s">
+            <div class="about-col">
+              <div class="img">
+                <img src="{% static 'img/about-plan.jpg' %}" alt="" class="img-fluid">
+                <div class="icon"><i class="ion-ios-list-outline"></i></div>
+              </div>
+              <h2 class="title"><a href="#">Our Plan</a></h2>
+              <p>
+                ISS to play a central role in Singapore’s future economy as a smart nation. Continuing the significant expansionwith emphasis on the strategic thrusts of Future Skills, Future Jobs and Future Learning.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-4 wow fadeInUp" data-wow-delay="0.2s">
+            <div class="about-col">
+              <div class="img">
+                <img src="{% static 'img/about-vision.jpg' %}" alt="" class="img-fluid">
+                <div class="icon"><i class="ion-ios-eye-outline"></i></div>
+              </div>
+              <h2 class="title"><a href="#">Our Vision</a></h2>
+              <p>
+                Enabling a digital economy that is always learning and always leading.
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- #about -->
+    <!--==========================
+      Call To Action Section
+    ============================-->
+    <section id="call-to-action" class="wow fadeIn">
+      <div class="container text-center">
+        <h3>Stay Updated</h3>
+        <p> Application in active development. Leave your email and we can inform you of product updates, releases, and involvement opportunities. Looking for opinions on shaping the future development of the platform.</p>
+        <a class="cta-btn" href="#">Subscribe for Updates</a>
+      </div>
+    </section><!-- #call-to-action -->
+  </main>
+
+  <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+
+  <!-- JavaScript Libraries -->
+  <script src="{% static 'lib/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'lib/jquery/jquery-migrate.min.js' %}"></script>
+  <script src="{% static 'lib/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'lib/easing/easing.min.js' %}"></script>
+  <script src="{% static 'lib/superfish/hoverIntent.js' %}"></script>
+  <script src="{% static 'lib/superfish/superfish.min.js' %}"></script>
+  <script src="{% static 'lib/wow/wow.min.js' %}"></script>
+  <script src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
+  <script src="{% static 'lib/counterup/counterup.min.js' %}"></script>
+  <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
+  <script src="{% static 'lib/isotope/isotope.pkgd.min.js' %}"></script>
+  <script src="{% static 'lib/lightbox/js/lightbox.min.js' %}"></script>
+  <script src="{% static 'lib/touchSwipe/jquery.touchSwipe.min.js' %}"></script>
+
+  <!-- Contact Form JavaScript File -->
+  <script src="{% static 'contactform/contactform.js' %}"></script>
+
+  <!-- Template Main Javascript File -->
+  <script src="{% static 'js/main.js' %}"></script>
+
+
+
+	<h1>NUS ISS Trading Demonstration {{ me }}</h1>
+
+	<h2>Total Owing</h2>
+	<h2>{{ peer1 }}: SGD {{ totalB }}</h2>
+	<h2>{{ peer2 }}: SGD {{ totalC }}</h2>
+
+	<form action="{% url 'trade:createIOU' hostport %}" method="post">
+	{% csrf_token %}
+		<input type="radio" name="target" id="peer1" value="{{ peer1path }}" />
+		<label for="Paris">{{ peer1 }}</label><br />
+		<input type="radio" name="target" id="peer2" value="{{ peer2path }}" />
+		<label for="New York">{{ peer2 }}</label><br />
+		<label for="value">SGD</label>
+		<input type="number" name="value" max="100" min="1">
+	<input type="submit" value="Trade" />
+	</form>
+
+	<h3>Vault</h3>
+	<ul>
+	{% for j in rends %}
+	    <li>{{ j }}</li>
+	{% endfor %}
+	</ul>
+
+</body>
+</html>
