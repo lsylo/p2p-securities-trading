@@ -159,24 +159,21 @@
         <div class="form">
           <div id="sendmessage">Your order has been submitted. Confirmation will be sent. Thank you.</div>
           <div id="errormessage"></div>
-          <form action="" method="post" role="form" class="contactForm">
+          <form action="{% url 'trade:createIOU' hostport %}" method="post" role="form" class="contactform">
+          {% csrf_token %}
             <div class="form-row">
               <div class="form-group col-md-6">
-                <input type="text" name="name" class="form-control" id="name" placeholder="Recipient" data-rule="minlen:4" data-msg="Please enter a valid recipient" />
+                <input list="recipients" name="target" class="form-control" id="name" placeholder="Recipient"/>
+                <datalist id="recipients">
+                	<option value="{{ peer1path }}"></option>
+                	<option value="{{ peer2path }}"></option>
+                </datalist>
                 <div class="validation"></div>
               </div>
               <div class="form-group col-md-6">
-                <input type="email" class="form-control" name="email" id="email" placeholder="Dollar Value (SGD)" data-rule="email" data-msg="Please enter a minimum value of $1 and maximum value of $100" />
+                <input type="number" class="form-control" name="value" placeholder="Dollar Value (SGD)" max="100" min="" />
                 <div class="validation"></div>
               </div>
-            </div>
-            <div class="form-group">
-              <input type="text" class="form-control" name="subject" id="subject" placeholder="Purpose" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
-              <div class="validation"></div>
-            </div>
-            <div class="form-group">
-              <textarea class="form-control" name="message" rows="5" data-rule="required" data-msg="Relevant transaction notes" placeholder="Notes"></textarea>
-              <div class="validation"></div>
             </div>
             <div class="text-center"><button type="submit">Submit Order</button></div>
           </form>
@@ -422,12 +419,12 @@
 	<form action="{% url 'trade:createIOU' hostport %}" method="post">
 	{% csrf_token %}
 		<input type="radio" name="target" id="peer1" value="{{ peer1path }}" />
-		<label for="Paris">{{ peer1 }}</label><br />
+		<label for="peer1">{{ peer1 }}</label><br />
 		<input type="radio" name="target" id="peer2" value="{{ peer2path }}" />
-		<label for="New York">{{ peer2 }}</label><br />
+		<label for="peer2">{{ peer2 }}</label><br />
 		<label for="value">SGD</label>
-		<input type="number" name="value" max="100" min="1">
-	<input type="submit" value="Trade" />
+		<input type="number" name="value" max="100" min="1>">
+		<input type="submit" value="Trade" /></input>
 	</form>
 
 	<h3>Vault</h3>
