@@ -75,7 +75,9 @@
               <div class="carousel-content">
                 <h2>Peer to Peer Securities Trading</h2>
                 <p>Corda based proof of concept demonstrating matching, validation, and consensus of securities trades. Implements unique data models to digitize stocks, bonds, options, and futures contracts.</p>
-                <a href="#facts" class="btn-get-started scrollto">Demo</a>
+                <a href="{% url 'trade:detail' 10009 %}" class="btn-get-started scrollto">London</a>
+                <a href="{% url 'trade:detail' 10012 %}" class="btn-get-started scrollto">New York</a>
+                <a href="{% url 'trade:detail' 10015 %}" class="btn-get-started scrollto">Paris</a>
               </div>
             </div>
           </div>
