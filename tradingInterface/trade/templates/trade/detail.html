@@ -165,8 +165,8 @@
               <div class="form-group col-md-6">
                 <input list="recipients" name="target" class="form-control" id="name" placeholder="Recipient"/>
                 <datalist id="recipients">
-                	<option value="{{ peer1path }}"></option>
-                	<option value="{{ peer2path }}"></option>
+                	<option label="{{ peer1 }}" value="{{ peer1path }}"></option>
+                	<option label="{{ peer2 }}" value="{{ peer2path }}"></option>
                 </datalist>
                 <div class="validation"></div>
               </div>
@@ -224,97 +224,25 @@
           <div class="col-lg-12">
             <ul id="portfolio-flters">
               <li data-filter="*" class="filter-active">All</li>
-              <li data-filter=".filter-app">New York</li>
-              <li data-filter=".filter-card">Paris</li>
+              <li data-filter=".filter-app">{{ peer1 }}</li>
+              <li data-filter=".filter-card">{{ peer2 }}</li>
             </ul>
           </div>
         </div>
 
         <div class="row portfolio-container">
-
-          <div class="col-lg-12 col-md-6 portfolio-item filter-app wow fadeInUp">
-            <div class="portfolio-wrap">
-              <div class="portfolio-info">
-                <h4><a href="#">Transaction 1</a></h4>
-                <p>New York</p>
-              </div>
-            </div>
+        	{% for j in rends %}
+	          <div class="col-lg-6 col-md-12 portfolio-item filter-app wow fadeInUp">
+	            <div class="portfolio-wrap">
+	              <div class="portfolio-info">
+	                <h4><a href="#">{{ j }}</a></h4>
+	                <p>IOU</p>
+	              </div>
+	            </div>
+	          </div>
+	        {% endfor %}
           </div>
-
-          <div class="col-lg-12 col-md-6 portfolio-item filter-web wow fadeInUp" data-wow-delay="0.1s">
-            <div class="portfolio-wrap">
-              <div class="portfolio-info">
-                <h4><a href="#">Transaction 2</a></h4>
-                <p>Web</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-12 col-md-6 portfolio-item filter-app wow fadeInUp" data-wow-delay="0.2s">
-            <div class="portfolio-wrap">
-              <div class="portfolio-info">
-                <h4><a href="#">Transaction 3</a></h4>
-                <p>App</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-12 col-md-6 portfolio-item filter-card wow fadeInUp">
-            <div class="portfolio-wrap">
-              <div class="portfolio-info">
-                <h4><a href="#">Transaction 4</a></h4>
-                <p>Card</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-12 col-md-6 portfolio-item filter-web wow fadeInUp" data-wow-delay="0.1s">
-            <div class="portfolio-wrap">
-              <div class="portfolio-info">
-                <h4><a href="#">Transaction 5</a></h4>
-                <p>Web</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-12 col-md-6 portfolio-item filter-app wow fadeInUp" data-wow-delay="0.2s">
-            <div class="portfolio-wrap">
-              <div class="portfolio-info">
-                <h4><a href="#">Transaction 6</a></h4>
-                <p>App</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-12 col-md-6 portfolio-item filter-card wow fadeInUp">
-            <div class="portfolio-wrap">
-              <div class="portfolio-info">
-                <h4><a href="#">Transaction 7</a></h4>
-                <p>Card</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-12 col-md-6 portfolio-item filter-card wow fadeInUp" data-wow-delay="0.1s">
-            <div class="portfolio-wrap">
-              <div class="portfolio-info">
-                <h4><a href="#">Transaction 8</a></h4>
-                <p>Card</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-12 col-md-6 portfolio-item filter-web wow fadeInUp" data-wow-delay="0.2s">
-            <div class="portfolio-wrap">
-              <div class="portfolio-info">
-                <h4><a href="#">Transaction 9</a></h4>
-                <p>Web</p>
-              </div>
-            </div>
-          </div>
-
         </div>
-
       </div>
     </section><!-- #portfolio -->
 <!--==========================
