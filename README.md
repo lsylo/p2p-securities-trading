@@ -1,34 +1,55 @@
 # p2p-securities-trading
 
-* A peer-to-peer platform for trading securities. 
+* Proof-of-Concept peer-to-peer securities trading platform. 
 * Developed on Corda and Django.
-* Started with Corda example application.
+* Built with Corda example application. 
+* [Example App Documentation](https://docs.corda.net/tutorial-cordapp.html)
 
 ## Getting Started
 
 clone repository - provides copy of Corda application (Cordapp) and Django project.
-
-### Prerequisites
+```
+git clone https://github.com/MalvinLo/p2p-securities-trading.git
+```
+## Prerequisites
 
 * java
 * python
 
-### Installing
+## Installing
 
-launch corda nodes from Cordapp home directory
+### Build Borda Nodes
 
+Change to cordapp-example directory
+
+Linux
 ```
-call kotlin-source\build\nodes\runnodes
+./gradlew deployNodes
+```
+Windows
+```
+gradle.bat deployNodes
 ```
 
-configure ALLOWED_HOSTS in Django settings file
+### Launch Corda Nodes
 
-run Django test server from Django project directory
+Make sure you are still in the cordapp-example directory
+
+Linux
+```
+kotlin-source/build/nodes/runnodes
+```
+Windows
+```
+call kotlin-source\build\nodes\runnodes.bat
+```
+
+### Run Django dev server
+
+Navigate to tradingInterface directory
 ```
 python manage.py runserver
 ```
-
-navigate to server on web browser to test application
 
 
 ## Built With
