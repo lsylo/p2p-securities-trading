@@ -28,7 +28,7 @@ Linux
 ```
 Windows
 ```
-gradle.bat deployNodes
+gradlew.bat deployNodes
 ```
 
 ### Launch Corda Nodes
