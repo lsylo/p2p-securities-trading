@@ -8,28 +8,37 @@ import javax.persistence.Entity
 import javax.persistence.Table
 
 /**
- * The family of schemas for IOUState.
+ * The family of schemas for BondState.
  */
-object IOUSchema
+object BondSchema
 
 /**
- * An IOUState schema.
+ * An BondState schema.
  */
-object IOUSchemaV1 : MappedSchema(
-        schemaFamily = IOUSchema.javaClass,
+object BondSchemaV1 : MappedSchema(
+        schemaFamily = BondSchema.javaClass,
         version = 1,
-        mappedTypes = listOf(PersistentIOU::class.java)) {
+        mappedTypes = listOf(PersistentBond::class.java)) {
     @Entity
-    @Table(name = "iou_states")
-    class PersistentIOU(
-            @Column(name = "lender")
-            var lenderName: String,
+    @Table(name = "bond_states")
+    class PersistentBond(
+            @Column(name = "FaceValue")
+            var FaceValue: Int,
 
-            @Column(name = "borrower")
-            var borrowerName: String,
+            @Column(name = "CouponRate")
+            var couponRate: Int,
 
-            @Column(name = "value")
-            var value: Int,
+            @Column(name = "Issuer")
+            var Issuer: String,
+
+            @Column(name = "Owner")
+            var Owner: String,
+
+            @Column(name = "CouponDates")
+            var CouponDates: String,
+
+            @Column(name = "MaturityDate")
+            var MaturityDate: String,
 
             @Column(name = "linear_id")
             var linearId: UUID

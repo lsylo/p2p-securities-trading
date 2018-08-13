@@ -15,21 +15,27 @@ import net.corda.core.schemas.QueryableState
  *
  * A state must implement [ContractState] or one of its descendants.
  *
- * @param value the value of the IOU.
- * @param lender the party issuing the IOU.
- * @param borrower the party receiving and approving the IOU.
+ * @param FaceValue the par value of the bond.
+ * @param CouponRate the interest rate of the bond
+ * @param Issuer the party who originally issued the bond.
+ * @param Owner the current owner of the bond.
+ * @param CouponDates the list of coupon payment dates.
+ * @param MaturityDate the date at which bond matures.
  */
-data class IOUState(val value: Int,
-                    val lender: Party,
-                    val borrower: Party,
+data class BondState(val FaceValue: Int,
+                    val CouponRate: Int,
+                    val Issuer: Party,
+                    val Owner: Party,
+                    CouponDates: Array,
+                    MaturityDate: String,
                     override val linearId: UniqueIdentifier = UniqueIdentifier()):
         LinearState, QueryableState {
     /** The public keys of the involved parties. */
-    override val participants: List<AbstractParty> get() = listOf(lender, borrower)
+    override val participants: List<AbstractParty> get() = listOf(Issuer, Owner)
 
     override fun generateMappedObject(schema: MappedSchema): PersistentState {
         return when (schema) {
-            is IOUSchemaV1 -> IOUSchemaV1.PersistentIOU(
+            is BondSchemaV1 -> BondSchemaV1.PersistentBond(
                     this.lender.name.toString(),
                     this.borrower.name.toString(),
                     this.value,
@@ -39,5 +45,5 @@ data class IOUState(val value: Int,
         }
     }
 
-    override fun supportedSchemas(): Iterable<MappedSchema> = listOf(IOUSchemaV1)
+    override fun supportedSchemas(): Iterable<MappedSchema> = listOf(BondSchemaV1)
 }
