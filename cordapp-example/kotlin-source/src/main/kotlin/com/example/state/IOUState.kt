@@ -26,7 +26,6 @@ data class BondState(val FaceValue: Int,
                     val CouponRate: Int,
                     val Issuer: Party,
                     val Owner: Party,
-                    CouponDates: Array,
                     MaturityDate: String,
                     override val linearId: UniqueIdentifier = UniqueIdentifier()):
         LinearState, QueryableState {
@@ -36,9 +35,11 @@ data class BondState(val FaceValue: Int,
     override fun generateMappedObject(schema: MappedSchema): PersistentState {
         return when (schema) {
             is BondSchemaV1 -> BondSchemaV1.PersistentBond(
-                    this.lender.name.toString(),
-                    this.borrower.name.toString(),
-                    this.value,
+            		this.FaceValue
+            		this.CouponRate
+            		this.Issuer.name.toString(),
+                    this.Owner.name.toString(),
+                    this.MaturityDate,
                     this.linearId.id
             )
             else -> throw IllegalArgumentException("Unrecognised schema $schema")

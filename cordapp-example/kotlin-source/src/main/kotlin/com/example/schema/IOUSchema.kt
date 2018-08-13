@@ -26,16 +26,13 @@ object BondSchemaV1 : MappedSchema(
             var FaceValue: Int,
 
             @Column(name = "CouponRate")
-            var couponRate: Int,
+            var CouponRate: Int,
 
             @Column(name = "Issuer")
             var Issuer: String,
 
             @Column(name = "Owner")
             var Owner: String,
-
-            @Column(name = "CouponDates")
-            var CouponDates: String,
 
             @Column(name = "MaturityDate")
             var MaturityDate: String,
