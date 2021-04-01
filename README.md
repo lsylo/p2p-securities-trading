@@ -18,7 +18,7 @@ git clone https://github.com/MalvinLo/p2p-securities-trading.git
 
 ## Installing
 
-### Build Borda Nodes
+### Build Corda Nodes
 
 Change to cordapp-example directory
 
